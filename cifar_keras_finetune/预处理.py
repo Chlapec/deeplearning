@@ -34,7 +34,7 @@ def rmdir_then_mkdir(dirpath):
 
 rmdir_then_mkdir(input_dir)
 
-# 5000张训练，1000张测试
+# 40000张训练，1000张测试
 num_train_per_category = 4000
 total_train = num_train_per_category * 10
 
