@@ -13,6 +13,7 @@
 * 2017-03-13 提交结果
  * score:0.9095 
  * basic-presicion:0.7566
+* 公开了部分源码，其他部分赛后开源
 
 ## 项目工程结构
 
@@ -56,6 +57,12 @@ Before running the code, you should build up folders as follow:
 |   |__pant_length_labels
 |   |__skirt_length_labels
 |   |__sleeve_length_labels
+|
+└── train.csv
+|
+└── test_a.csv
+|
+└── resnet_fine_tune.ipynb
 
 ```
 ## 各类别服饰属性
