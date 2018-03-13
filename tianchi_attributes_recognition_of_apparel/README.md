@@ -153,6 +153,27 @@ Before running the code, you should build up folders as follow:
   - Long Sleeves
   - Extra Long Sleeves
 
+## 评估指标
+
+*  录入参赛者提交的csv文件，为每条数据计算出AttrValueProbs中的最大概率以及对应的标签，分别记为MaxAttrValueProb和MaxAttrValue。
+*  对每个属性维度，分别初始化评测计数器：
+   * BLOCK_COUNT = 0 (不输出的个数)
+   * PRED_COUNT = 0 (预测输出的个数)
+   * PRED_CORRECT_COUNT = 0 (预测正确的个数)
+   * 设定GT_COUNT为该属性维度下所有相关数据的总条数
+*  给定一个模型输出阈值（ProbThreshold），分析与该属性维度相关的每条数据的预测结果：
+   * 当MaxAttrValueProb < ProbThreshold，模型不输出：BLOCK_COUNT++
+   * 当MaxAttrValueProb >= ProbThreshold：
+   * MaxAttrValue对应的标注位是'y'时，记为正确： PRED_COUNT++，PRED_CORRECT_COUNT++
+   * MaxAttrValue对应的标注位是'm'时，不记入准确率评测：无操作
+   * MaxAttrValue对应的标注位是'n'时，记为错误： PRED_COUNT++
+*  遍历使BLOCK_COUNT落在[0, GT_COUNT)里所有可能的阈值ProbThreshold，分别计算：
+   * 准确率(P)：PRED_CORRECT_COUNT / PRED_COUNT
+   * 统计它们的平均值，记为AP。 
+*  综合所有的属性维度计算得到的AP，统计它们的平均值，得出mAP。mAP将作为挑战赛——服饰属性标签识别赛道的竞赛排名得分。
+
+*  我们还会展示BasicPrecision指标，即模型在测试集全部预测输出(ProbThreshold=0)情况下每个属性维度准确率的平均值，作为更直接的准确率预估指标供大家参考。在BasicPrecision = 0.7时，排名得分mAP一般在 0.93 左右。
+
 
 
 
